@@ -1357,6 +1357,105 @@
                         </div>
                         <div class="service-note">Minimálně 6 kusů</div>
                     </div>
+
+                    <!-- Additional Services -->
+<div class="mt-12">
+    <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">Doplňkové služby</h3>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="smile"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Malování na obličej</h4>
+                    <div class="service-price">800 Kč/hod</div>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="music"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Disko/Karaoke</h4>
+                    <div class="service-price">1 000 Kč</div>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="scissors"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Marcipánová dílna</h4>
+                    <div class="service-price">1 200 Kč</div>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="award"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Zdobení cupcaků</h4>
+                    <div class="service-price">od 1 200 Kč</div>
+                </div>
+            </div>
+            <div class="service-note">Minimálně 15 kusů</div>
+        </div>
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="star"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Tvoření minidortů</h4>
+                    <div class="service-price">od 1 500 Kč</div>
+                </div>
+            </div>
+            <div class="service-note">Minimálně 6 kusů</div>
+        </div>
+        
+        <!-- NOVÉ - Obložené mísy -->
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="package"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Slaný mix</h4>
+                    <div class="service-price">2 500 Kč</div>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="apple"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Ovocná mísa</h4>
+                    <div class="service-price">1 800 Kč</div>
+                </div>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-card-header">
+                <div class="service-icon-small">
+                    <i data-feather="leaf"></i>
+                </div>
+                <div class="service-info">
+                    <h4>Zeleninová mísa</h4>
+                    <div class="service-price">1 700 Kč</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
 
@@ -1446,6 +1545,18 @@
                             <label class="service-checkbox">
                                 <input type="checkbox" data-service="minicakes" data-price="1500">
                                 <span>Tvoření minidortů (od 1 500 Kč, min. 6 ks)</span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="salty-mix" data-price="2500">
+                                <span>Slaný mix (2 500 Kč)</span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="fruit-platter" data-price="1800">
+                                <span>Ovocná mísa (1 800 Kč)</span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="vegetable-platter" data-price="1700">
+                                <span>Zeleninová mísa (1 700 Kč)</span>
                             </label>
                         </div>
                     </div>
@@ -1583,7 +1694,10 @@
             disco: { name: 'Disko/Karaoke', price: 1000 },
             marzipan: { name: 'Marcipánová dílna', price: 1200 },
             cupcakes: { name: 'Zdobení cupcaků', price: 1200 },
-            minicakes: { name: 'Tvoření minidortů', price: 1500 }
+            minicakes: { name: 'Tvoření minidortů', price: 1500 },
+            'salty-mix': { name: 'Slaný mix', price: 2500 },
+            'fruit-platter': { name: 'Ovocná mísa', price: 1800 },
+            'vegetable-platter': { name: 'Zeleninová mísa', price: 1700 }
         };
 
         let selectedDay = null;
