@@ -202,7 +202,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
 
         .entry-card {
@@ -282,6 +282,47 @@
         .entry-description {
             color: #2E8B57;
             line-height: 1.6;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            border: 2px solid #74C69D;
+        }
+
+        .info-box h4 {
+            color: #2E8B57;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .info-item svg {
+            color: #3CB371;
+            flex-shrink: 0;
+        }
+
+        .info-item span {
+            color: #2E8B57;
+            font-weight: 600;
         }
 
         /* Wide Service Card */
@@ -529,6 +570,10 @@
             .entry-cards {
                 grid-template-columns: 1fr;
             }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -586,9 +631,65 @@
     <!-- Pricing Section -->
     <section class="pricing-section">
         <div class="pricing-container">
-            <!-- Entry Cards -->
+            <!-- Entry to Herna - NEW SECTION -->
             <div class="section-title">
-                <h2>Vstupné</h2>
+                <h2>Vstupné do herny</h2>
+            </div>
+            <div class="entry-cards">
+                <div class="entry-card">
+                    <div class="entry-icon">
+                        <i data-feather="clock"></i>
+                    </div>
+                    <h3>1,5 hodiny</h3>
+                    <div class="entry-price">110 Kč</div>
+                    <p class="entry-description">Vstup na 1,5 hodiny do herny</p>
+                </div>
+
+                <div class="entry-card">
+                    <div class="entry-icon">
+                        <i data-feather="sun"></i>
+                    </div>
+                    <h3>Celodenní vstup</h3>
+                    <div class="entry-price">140 Kč</div>
+                    <p class="entry-description">Vstup na celý den</p>
+                </div>
+
+                <div class="entry-card">
+                    <div class="entry-icon">
+                        <i data-feather="zap"></i>
+                    </div>
+                    <h3>Happy Hour</h3>
+                    <div class="entry-price">60 Kč</div>
+                    <p class="entry-description">17:00 - 18:00 (platí ve všední dny)</p>
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box">
+                <h4>Důležité informace o vstupném</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i data-feather="percent"></i>
+                        <span>Sourozenec: sleva 20%</span>
+                    </div>
+                    <div class="info-item">
+                        <i data-feather="baby"></i>
+                        <span>Děti do 1 roku: zdarma</span>
+                    </div>
+                    <div class="info-item">
+                        <i data-feather="user"></i>
+                        <span>Doprovod v herně: 40 Kč</span>
+                    </div>
+                    <div class="info-item">
+                        <i data-feather="coffee"></i>
+                        <span>Doprovod s občerstvením v kavárně: vstup do herny zdarma</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Permanent Cards -->
+            <div class="section-title">
+                <h2>Permanentky</h2>
             </div>
             <div class="entry-cards">
                 <div class="entry-card">
@@ -611,7 +712,7 @@
             </div>
 
             <!-- Services Card -->
-            <div class="section-title">
+            <div class="section-title" style="margin-top: 4rem;">
                 <h2>Doplňkové služby</h2>
             </div>
             <div class="services-card">
@@ -730,9 +831,9 @@
                     <h3>Otevírací doba</h3>
                     <ul class="list-none">
                         <li>Po: Zavřeno</li>
-                        <li>Út - Čt: 9:30-18:00</li>
-                        <li>Pá - So: 9:30-19:00</li>
-                        <li>Ne: 13:00-18:00</li>
+                        <li>Út - Pá: 9:30-18:00</li>
+                        <li>So: 9:30-19:00</li>
+                        <li>Ne: 14:00-18:00</li>
                     </ul>
                 </div>
 
