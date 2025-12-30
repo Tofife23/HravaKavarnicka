@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hravá Kavárnička | Kolín</title>
+    <link rel="icon" href="../img/logo2.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Comfortaa', cursive;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+
+        .current-page {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+        
+        .current-page:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+        
+        .nav-link:hover {
+            color: #2E8B57;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .mobile-menu a {
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .mobile-menu a:hover {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            transform: translateX(4px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../img/27.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            letter-spacing: -1px;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        /* CTA Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            color: #2E8B57;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 20px rgba(116, 198, 157, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(116, 198, 157, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #2E8B57;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            background: #E7FFF3;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, white 0%, white 85%, rgba(231, 255, 243, 0.5) 100%);
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2E8B57;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+            border-radius: 2px;
+        }
+        
+        .about-card {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            animation: slideInUp 0.6s ease-out both;
+        }
+        
+        .about-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .about-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .about-icon {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            padding: 1rem;
+            border-radius: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(116, 198, 157, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .about-card:hover .about-icon {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(116, 198, 157, 0.4);
+        }
+        
+        .about-icon svg {
+            color: #2E8B57;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, rgba(231, 255, 243, 0.5) 0%, #fffbf0 20%, #E7FFF3 100%);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.08) rotate(2deg);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(46, 139, 87, 0.4) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        /* Status Box */
+        .status-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+        
+        .status-box h3 {
+            color: #2E8B57;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-box svg {
+            color: #2E8B57;
+            width: 1.25rem;
+        }
+        
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 2px solid #E7FFF3;
+        }
+        
+        .status-row:last-child {
+            border-bottom: none;
+        }
+        
+        .status-label {
+            color: #2E8B57;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .status-time {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            color: #2E8B57;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        
+        /* Map Section */
+        .map-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, #E7FFF3 0%, #fffbf0 15%, white 100%);
+        }
+        
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            aspect-ratio: 16/9;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Footer */
+footer {
+    background: linear-gradient(180deg, #1e5631 0%, #1a4d2b 50%, #164325 100%);
+    color: white;
+    padding: 3rem 1rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            max-width: 6xl;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+        }
+        
+        .footer-col p {
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-col ul li {
+            color: rgba(255,255,255,0.8);
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-col ul li:hover {
+            color: #74C69D;
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #3CB371, #2E8B57);
+            transform: translateY(-3px);
+        }
+        
+        .social-icons svg {
+            width: 1.25rem;
+            color: white;
+        }
+        
+        .footer-divider {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 2rem 0;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .h-screen-80 {
+            height: 80vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16 items-center">
+                    <a href="../domů/" class="flex items-center space-x-2 group">
+                    <img 
+        src="../img/logo5.png"
+        alt="Hravá Kavárnička"
+        class="max-h-12 w-auto object-contain block transition-transform group-hover:scale-105"
+        
+    >
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="current-page ">Domů</a>
+                    <a href="../galerie/" class="nav-link">Galerie</a>
+                    <a href="../ceník/" class="nav-link">Ceník</a>
+                    <a href="../oslavy/" class="nav-link">Oslavy</a>
+                    <a href="../kontakt/" class="nav-link">Kontakt</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-button p-2 text-green-900 hover:text-green-700 focus:outline-none">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden bg-white border-t border-green-100">
+            <div class="px-4 py-3 space-y-1">
+                <a href="#" class="block text-green-900 hover:text-green-900">Domů</a>
+                <a href="../galerie/" class="block text-green-700 hover:text-green-900">Galerie</a>
+                <a href="../ceník/" class="block text-green-700 hover:text-green-900">Ceník</a>
+                <a href="../oslavy/" class="block text-green-700 hover:text-green-900">Oslavy</a>
+                <a href="../kontakt/" class="block text-green-700 hover:text-green-900">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content px-4 max-w-4xl">
+            <h1>Vítejte v Hravé Kavárničce</h1>
+            <p>Kavárna · Herna · Oslavy pro děti</p>
+            <div class="space-x-4 flex justify-center flex-wrap gap-4">
+                <a href="#about" class="btn-primary">O nás</a>
+                <a href="../galerie/" class="btn-secondary">Naše prostory</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title">Naše kavárna</h2>
+                <p class="text-xl text-green-700 max-w-3xl mx-auto leading-relaxed mt-8">
+                    Moderní prostor v Kolíně (Labská 14, Zálabí) navržený tak, aby se zde cítily dobře jak děti, tak jejich rodiče.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl aspect-video">
+                        <img src="http://static.photos/children/1200x800/10" alt="Interiér kavárny" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 status-box lg:w-96">
+                        <h3>
+                            <i data-feather="clock"></i>
+                            <span id="status-text">Načítání...</span>
+                        </h3>
+                        
+                    </div>
+                </div>
+
+                 <div class="space-y-4 lg:mt-8">
+                    <div class="about-card group bg-gradient-to-br from-green-50 to-green-50 p-4 rounded-xl border-2 border-green-200 transition-all duration-300 hover:border-green-400 hover:shadow-lg hover:scale-102">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0">
+                                <span class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-400 via-green-500 to-green-500 text-white font-bold text-lg rounded-full shadow-md group-hover:scale-105 group-hover:rotate-12 transition-all duration-300">1</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold bg-gradient-to-r from-green-900 to-green-700 bg-clip-text text-transparent mb-1">Kavárna pro rodiče</h3>
+                                <p class="text-sm text-green-700 leading-relaxed">
+                                    Pohodový prostor s výběrovou kávou a domácími sladkostmi, kde si rodiče odpočinou, zatímco děti si hrají.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-card group bg-gradient-to-br from-green-50 to-green-50 p-4 rounded-xl border-2 border-green-200 transition-all duration-300 hover:border-green-400 hover:shadow-lg hover:scale-102">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0">
+                                <span class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-400 via-green-500 to-green-500 text-white font-bold text-lg rounded-full shadow-md group-hover:scale-105 group-hover:-rotate-12 transition-all duration-300">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold bg-gradient-to-r from-green-900 to-green-700 bg-clip-text text-transparent mb-1">Herna pro děti</h3>
+                                <p class="text-sm text-green-700 leading-relaxed">
+                                    Prostor plný dřevěných hraček, prolézaček, skluzavek a kostýmů – ideální pro dětské zabavení.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-card group bg-gradient-to-br from-green-50 to-green-50 p-4 rounded-xl border-2 border-green-200 transition-all duration-300 hover:border-green-400 hover:shadow-lg hover:scale-102">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0">
+                                <span class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-400 via-green-500 to-green-500 text-white font-bold text-lg rounded-full shadow-md group-hover:scale-105 group-hover:rotate-12 transition-all duration-300">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold bg-gradient-to-r from-green-900 to-green-700 bg-clip-text text-transparent mb-1">Oslavy pro děti</h3>
+                                <p class="text-sm text-green-700 leading-relaxed">
+                                    Organizujeme narozeninové party a rodinné akce – s výzdobou, hrami a přátelskou atmosférou.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title">Nahlédněte k nám</h2>
+                <p class="text-green-700 max-w-2xl mx-auto mt-6 text-lg">Prohlédněte si atmosféru naší kavárny v několika fotografiích</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="img/24.jpg" alt="Hernička">
+                    <div class="gallery-overlay">
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/6.jpg" alt="Kavárna">
+                    <div class="gallery-overlay">
+                        
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/27.jpg" alt="Oslava">
+                    <div class="gallery-overlay">
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="../galerie/" class="inline-flex items-center px-6 py-3 border-2 border-green-600 text-green-600 rounded-full font-bold hover:bg-green-600 hover:text-white transition-all duration-300">
+                    Prohlédnout více
+                    <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Najděte nás</h2>
+                <p class="text-green-700 max-w-2xl mx-auto mt-6 text-lg">Prohlédněte si naši kavárnu skrz Google Street View</p>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!4v1716212345678!6m8!1m7!1sCAoSLEFGMVFpcE5XTmFwM2ZyWk1VTW5nRzB6d1lrX2NIb0JxZzNBRUlFbXh4YlVn!2m2!1d50.0267724!2d15.2016894!3f0!4f0!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Hravá Kavárnička</h3>
+                    <p>Místo, kde si děti hrají a rodiče odpočívají.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Otevírací doba</h3>
+                    <ul class="list-none">
+                        <li>Po: Zavřeno</li>
+                        <li>Út - Čt: 9:30-18:00</li>
+                        <li>Pá - So: 9:30-19:00</li>
+                        <li>Ne: 13:00-18:00</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Kontakt</h3>
+                    <ul class="list-none">
+                        <li>Labská 14, 280 02 Kolín V</li>
+                        <li>Tel: <a href="tel:720575101" class="hover:text-green-300">720 575 101</a></li>
+                        <li>Email: <a href="mailto:info@hravakavarnicka.cz" class="hover:text-green-300">info@hravakavarnicka.cz</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Sledujte nás</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>© 2026 Hravá Kavárnička. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // Check open status - UPDATED FOR NEW OPENING HOURS
+        function checkOpenStatus() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const currentTime = hours + minutes / 60;
+            
+            const statusElement = document.getElementById('status-text');
+            let isOpen = false;
+            
+            // Monday = closed (day 1)
+            if (day === 1) {
+                isOpen = false;
+            }
+            // Tuesday - Thursday (days 2-4): 9:30-18:00
+            else if (day >= 2 && day <= 4) {
+                isOpen = currentTime >= 9.5 && currentTime < 18;
+            }
+            // Friday - Saturday (days 5-6): 9:30-19:00
+            else if (day >= 5 && day <= 6) {
+                isOpen = currentTime >= 9.5 && currentTime < 19;
+            }
+            // Sunday (day 0): 13:00-18:00
+            else if (day === 0) {
+                isOpen = currentTime >= 13 && currentTime < 18;
+            }
+            
+            if (isOpen) {
+                statusElement.innerHTML = 'Právě: <span class="text-green-600 font-bold">Otevřeno</span>';
+            } else {
+                statusElement.innerHTML = 'Právě: <span class="text-red-600 font-bold">Zavřeno</span>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', checkOpenStatus);
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close menu on outside click
+        document.addEventListener('click', (e) => {
+            const clickedInsideMenu = mobileMenu.contains(e.target);
+            const clickedButton = menuButton.contains(e.target);
+
+            if (!clickedInsideMenu && !clickedButton) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

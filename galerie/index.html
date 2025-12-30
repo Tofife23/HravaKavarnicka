@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie | Hravá Kavárnička</title>
+    <link rel="icon" href="../img/logo2.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Comfortaa', cursive;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+
+        .current-page {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+        
+        .current-page:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+        
+        .nav-link:hover {
+            color: #2E8B57;
+        }
+        
+        .current-page:hover:after {
+            width: 100%;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .mobile-menu a {
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .mobile-menu a:hover {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            transform: translateX(4px);
+        }
+
+        /* Gallery Hero */
+        /* Gallery Hero */
+        .gallery-hero {
+            padding: 5rem 1rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../img/43.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+        
+        .gallery-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .gallery-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-hero p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.95);
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 2rem 1rem;
+            background: white;
+        }
+
+        .filter-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #98E6C0;
+            color: #2E8B57;
+            background: white;
+        }
+
+        .filter-tab:hover {
+            background: #E7FFF3;
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            color: white;
+            border-color: #3CB371;
+            box-shadow: 0 4px 15px rgba(116, 198, 157, 0.3);
+        }
+
+        /* Gallery Grid */
+        .gallery-section {
+            padding: 3rem 1rem;
+            background: linear-gradient(180deg, white 0%, #fffbf0 50%, #E7FFF3 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            background: white;
+        }
+
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+
+        .gallery-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(116, 198, 157, 0.4);
+            z-index: 1;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            background: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: #3CB371;
+            transform: rotate(90deg);
+        }
+
+        .lightbox-close svg {
+            color: #2E8B57;
+        }
+
+        .lightbox-close:hover svg {
+            color: white;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: #3CB371;
+        }
+
+        .lightbox-nav svg {
+            color: #2E8B57;
+        }
+
+        .lightbox-nav:hover svg {
+            color: white;
+        }
+
+        .lightbox-prev {
+            left: -4rem;
+        }
+
+        .lightbox-next {
+            right: -4rem;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .upload-box {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 3rem;
+            border: 3px dashed #74C69D;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+        }
+
+        .upload-box:hover {
+            border-color: #3CB371;
+            background: linear-gradient(135deg, #E7FFF3 0%, #98E6C0 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(116, 198, 157, 0.2);
+        }
+
+        .upload-box svg {
+            color: #3CB371;
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-box h3 {
+            color: #2E8B57;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-box p {
+            color: #2E8B57;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #1e5631 0%, #1a4d2b 50%, #164325 100%);
+            color: white;
+            padding: 3rem 1rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            max-width: 6xl;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+        }
+        
+        .footer-col p {
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-col ul li {
+            color: rgba(255,255,255,0.8);
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-col ul li:hover {
+            color: #74C69D;
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #3CB371, #2E8B57);
+            transform: translateY(-3px);
+        }
+        
+        .social-icons svg {
+            width: 1.25rem;
+            color: white;
+        }
+        
+        .footer-divider {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 2rem 0;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-hero h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .lightbox-prev {
+                left: 1rem;
+            }
+
+            .lightbox-next {
+                right: 1rem;
+            }
+
+            .lightbox-close {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16 items-center">
+                <a href="../domů/" class="flex items-center space-x-2 group">
+                    <img 
+        src="../img/logo5.png"
+        alt="Hravá Kavárnička"
+        class="max-h-12 w-auto object-contain block transition-transform group-hover:scale-105"
+        
+    >
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../domů/" class="nav-link">Domů</a>
+                    <a href="#" class="current-page">Galerie</a>
+                    <a href="../ceník/" class="nav-link">Ceník</a>
+                    <a href="../oslavy/" class="nav-link">Oslavy</a>
+                    <a href="../kontakt/" class="nav-link">Kontakt</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-button p-2 text-green-900 hover:text-green-700 focus:outline-none">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden bg-white border-t border-green-100">
+            <div class="px-4 py-3 space-y-1">
+                <a href="../domů/" class="block text-green-700 hover:text-green-900">Domů</a>
+                <a href="#" class="block text-green-900 hover:text-green-900">Galerie</a>
+                <a href="../ceník/" class="block text-green-700 hover:text-green-900">Ceník</a>
+                <a href="../oslavy/" class="block text-green-700 hover:text-green-900">Oslavy</a>
+                <a href="../kontakt/" class="block text-green-700 hover:text-green-900">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Hero -->
+    <!-- Gallery Hero -->
+    <section class="gallery-hero">
+        <div style="position: relative; z-index: 2; text-align: center;">
+            <h1>Naše Galerie</h1>
+            <p>Prohlédněte si atmosféru naší kavárny, herničky a nezapomenutelné oslavy</p>
+        </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">Vše</button>
+        <button class="filter-tab" data-filter="kavarna">Kavárna</button>
+        <button class="filter-tab" data-filter="herna">Herna</button>
+        <button class="filter-tab" data-filter="jidlo">Jídlo & Pití</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-section">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Kavárna -->
+            <div class="gallery-item" data-category="kavarna" data-index="0">
+                <span class="gallery-badge">Kavárna</span>
+                <img src="../img/24.jpg" alt="Interiér kavárny">
+                <div class="gallery-overlay">                    
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/17.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="kavarna" data-index="0">
+                <span class="gallery-badge">Kavárna</span>
+                <img src="../img/25.jpg" alt="Interiér kavárny">
+                <div class="gallery-overlay"> 
+                </div>
+            </div>
+
+            
+
+            <div class="gallery-item" data-category="jidlo" data-index="8">
+                <span class="gallery-badge">Jídlo & Pití</span>
+                <img src="../img/52.jpg" alt="Káva a zákusky">
+                <div class="gallery-overlay"></div>
+            </div>
+
+            <div class="gallery-item" data-category="kavarna" data-index="1">
+                <span class="gallery-badge">Kavárna</span>
+                <img src="../img/8.jpg" alt="Kávový koutek">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="jidlo" data-index="8">
+                <span class="gallery-badge">Jídlo & Pití</span>
+                <img src="../img/1.jpg" alt="Káva a zákusky">
+                <div class="gallery-overlay"></div>
+            </div>
+
+            <!-- Herna -->
+            
+
+            <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/3.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="jidlo" data-index="8">
+                <span class="gallery-badge">Jídlo & Pití</span>
+                <img src="../img/16.jpg" alt="Káva a zákusky">
+                <div class="gallery-overlay"></div>
+            </div>
+
+            
+
+            <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/18.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            
+            <div class="gallery-item" data-category="kavarna" data-index="0">
+                <span class="gallery-badge">Kavárna</span>
+                <img src="../img/23.jpg" alt="Interiér kavárny">
+                <div class="gallery-overlay"> 
+                </div>
+            </div>
+           
+
+            <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/33.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="kavarna" data-index="0">
+                <span class="gallery-badge">Kavárna</span>
+                <img src="../img/49.jpg" alt="Interiér kavárny">
+                <div class="gallery-overlay"> 
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/37.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            <!-- Jídlo & Pití -->
+            <div class="gallery-item" data-category="jidlo" data-index="8">
+                <span class="gallery-badge">Jídlo & Pití</span>
+                <img src="../img/6.jpg" alt="Káva a zákusky">
+                <div class="gallery-overlay"></div>
+            </div>
+
+            <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/2.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="jidlo" data-index="8">
+                <span class="gallery-badge">Jídlo & Pití</span>
+                <img src="../img/11.jpg" alt="Káva a zákusky">
+                <div class="gallery-overlay"></div>
+            </div>
+
+            <div class="gallery-item" data-category="kavarna" data-index="0">
+                <span class="gallery-badge">Kavárna</span>
+                <img src="../img/29.jpg" alt="Interiér kavárny">
+                <div class="gallery-overlay"> 
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/27.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+            
+
+            <div class="gallery-item" data-category="jidlo" data-index="8">
+                <span class="gallery-badge">Jídlo & Pití</span>
+                <img src="../img/42.jpg" alt="Káva a zákusky">
+                <div class="gallery-overlay"></div>
+            </div>
+
+             <div class="gallery-item" data-category="herna" data-index="2">
+                <span class="gallery-badge">Herna</span>
+                <img src="../img/30.jpg" alt="Dětská herna">
+                <div class="gallery-overlay">
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="jidlo" data-index="8">
+                <span class="gallery-badge">Jídlo & Pití</span>
+                <img src="../img/47.jpg" alt="Káva a zákusky">
+                <div class="gallery-overlay"></div>
+            </div>
+
+            
+        </div>
+    </section>
+
+    
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <div class="lightbox-close" id="lightboxClose">
+                <i data-feather="x"></i>
+            </div>
+            <div class="lightbox-prev" id="lightboxPrev">
+                <i data-feather="chevron-left"></i>
+            </div>
+            <img src="" alt="" id="lightboxImage">
+            <div class="lightbox-next" id="lightboxNext">
+                <i data-feather="chevron-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content max-w-6xl mx-auto">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Hravá Kavárnička</h3>
+                    <p>Místo, kde si děti hrají a rodiče odpočívají.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Otevírací doba</h3>
+                    <ul class="list-none">
+                        <li>Po: Zavřeno</li>
+                        <li>Út - Čt: 9:30-18:00</li>
+                        <li>Pá - So: 9:30-19:00</li>
+                        <li>Ne: 13:00-18:00</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Kontakt</h3>
+                    <ul class="list-none">
+                        <li>Labská 14, 280 02 Kolín V</li>
+                        <li>Tel: <a href="tel:720575101" class="hover:text-green-300">720 575 101</a></li>
+                        <li>Email: <a href="mailto:info@hravakavarnicka.cz" class="hover:text-green-300">info@hravakavarnicka.cz</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Sledujte nás</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>© 2026 Hravá Kavárnička. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            const clickedInsideMenu = mobileMenu.contains(e.target);
+            const clickedButton = menuButton.contains(e.target);
+            if (!clickedInsideMenu && !clickedButton) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const filter = tab.dataset.filter;
+                
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        let currentImageIndex = 0;
+        let visibleImages = [];
+
+        function updateVisibleImages() {
+            visibleImages = Array.from(document.querySelectorAll('.gallery-item:not(.hidden)'));
+        }
+
+        function openLightbox(index) {
+            updateVisibleImages();
+            currentImageIndex = index;
+            const img = visibleImages[currentImageIndex].querySelector('img');
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + visibleImages.length) % visibleImages.length;
+            const img = visibleImages[currentImageIndex].querySelector('img');
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % visibleImages.length;
+            const img = visibleImages[currentImageIndex].querySelector('img');
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+        }
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                updateVisibleImages();
+                const visibleIndex = visibleImages.indexOf(item);
+                openLightbox(visibleIndex);
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', showPrevImage);
+        lightboxNext.addEventListener('click', showNextImage);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') showPrevImage();
+            if (e.key === 'ArrowRight') showNextImage();
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

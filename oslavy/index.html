@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oslavy | Hravá Kavárnička</title>
+    <link rel="icon" href="../img/logo2.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Comfortaa', cursive;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+
+        .current-page {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+        
+        .current-page:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+        
+        .nav-link:hover {
+            color: #2E8B57;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .mobile-menu a {
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .mobile-menu a:hover {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            transform: translateX(4px);
+        }
+        
+        /* Hero Section */
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../img/49.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            letter-spacing: -1px;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        /* Section Title */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2E8B57;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+            border-radius: 2px;
+        }
+        
+        /* Event Types Section with Animated Background */
+        .events-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, white 0%, rgba(231, 255, 243, 0.3) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .events-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(60, 179, 113, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 10%;
+            left: -10%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .events-section::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(152, 230, 192, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: 10%;
+            right: -5%;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+        
+        /* Simple Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .bento-item {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            min-height: 280px;
+        }
+        
+        /* Glassmorphism effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(46, 139, 87, 0.1);
+        }
+        
+        .bento-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 24px 60px rgba(46, 139, 87, 0.25);
+            z-index: 10;
+        }
+        
+        /* Card gradient backgrounds */
+        .gradient-1 { background: linear-gradient(135deg, rgba(255, 183, 195, 0.3), rgba(255, 218, 224, 0.5)); }
+        .gradient-2 { background: linear-gradient(135deg, rgba(152, 230, 192, 0.3), rgba(231, 255, 243, 0.5)); }
+        .gradient-3 { background: linear-gradient(135deg, rgba(179, 229, 252, 0.3), rgba(224, 247, 255, 0.5)); }
+        .gradient-4 { background: linear-gradient(135deg, rgba(255, 224, 178, 0.3), rgba(255, 243, 224, 0.5)); }
+        .gradient-5 { background: linear-gradient(135deg, rgba(216, 180, 254, 0.3), rgba(237, 224, 255, 0.5)); }
+        .gradient-6 { background: linear-gradient(135deg, rgba(254, 215, 170, 0.3), rgba(255, 237, 213, 0.5)); }
+        .gradient-7 { background: linear-gradient(135deg, rgba(134, 239, 172, 0.3), rgba(220, 252, 231, 0.5)); }
+        
+        /* Animated gradient overlay on hover */
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(60, 179, 113, 0) 0%, rgba(60, 179, 113, 0.15) 100%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 1;
+        }
+        
+        .bento-item:hover::before {
+            opacity: 1;
+        }
+        
+        /* Card content */
+        .bento-content {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* Floating icon with 3D effect */
+        .floating-icon-wrapper {
+            position: relative;
+            width: fit-content;
+            margin-bottom: 1.5rem;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .bento-item:hover .floating-icon-wrapper {
+            transform: translateY(-10px) rotateY(15deg) rotateX(10deg);
+        }
+        
+        .floating-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(46, 139, 87, 0.2);
+            transition: all 0.4s ease;
+        }
+        
+        .bento-item:hover .floating-icon {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            box-shadow: 0 12px 32px rgba(46, 139, 87, 0.4);
+            transform: rotate(10deg);
+        }
+        
+        .floating-icon svg {
+            width: 32px;
+            height: 32px;
+            color: #2E8B57;
+            transition: all 0.4s ease;
+        }
+        
+        .bento-item:hover .floating-icon svg {
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* Card number badge */
+        .card-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #2E8B57;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 3;
+        }
+        
+        .bento-item:hover .card-number {
+            transform: scale(1.15) rotate(360deg);
+            background: linear-gradient(135deg, #3CB371, #2E8B57);
+            color: white;
+            box-shadow: 0 8px 24px rgba(60, 179, 113, 0.4);
+        }
+        
+        /* Card text */
+        .card-text h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2E8B57;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+            transition: color 0.3s ease;
+        }
+        
+        .bento-item:hover .card-text h3 {
+            color: #3CB371;
+        }
+        
+        .card-text p {
+            color: #4a5568;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        /* Large cards get bigger text */
+        .card-text h3 {
+            font-size: 1.5rem;
+        }
+        
+        .card-text p {
+            font-size: 0.9rem;
+        }
+        
+        /* Interactive Pricing Cards */
+        .pricing-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #74C69D, #3CB371);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(46, 139, 87, 0.25);
+            border-color: #98E6C0;
+        }
+        
+        .pricing-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .pricing-card-header {
+            text-align: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(46, 139, 87, 0.1);
+        }
+        
+        .pricing-card-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 0.75rem;
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+        
+        .pricing-card:hover .pricing-card-icon {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .pricing-card-icon svg {
+            width: 26px;
+            height: 26px;
+            color: #2E8B57;
+            transition: color 0.4s ease;
+        }
+        
+        .pricing-card:hover .pricing-card-icon svg {
+            color: white;
+        }
+        
+        .pricing-duration {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2E8B57;
+            margin-bottom: 0.25rem;
+        }
+        
+        .pricing-day-type {
+            font-size: 0.85rem;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        .pricing-amount {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #2E8B57;
+            margin: 1rem 0;
+            line-height: 1;
+            text-align: center;
+        }
+        
+        .pricing-amount-small {
+            font-size: 1.25rem;
+            color: #74C69D;
+            margin-left: 0.25rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 1rem 0;
+            flex-grow: 1;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .pricing-features li svg {
+            color: #3CB371;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .pricing-card-button {
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, #98E6C0, #3CB371);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+        
+        .pricing-card-button:hover {
+            background: linear-gradient(135deg, #3CB371, #2E8B57);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(60, 179, 113, 0.4);
+        }
+        
+        /* Services Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(46, 139, 87, 0.2);
+            border-color: #98E6C0;
+        }
+        
+        .service-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-icon-small {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .service-icon-small svg {
+            width: 22px;
+            height: 22px;
+            color: #2E8B57;
+        }
+        
+        .service-card:hover .service-icon-small {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+        }
+        
+        .service-card:hover .service-icon-small svg {
+            color: white;
+        }
+        
+        .service-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2E8B57;
+            margin-bottom: 0.25rem;
+        }
+        
+        .service-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #3CB371;
+        }
+        
+        .service-note {
+            font-size: 0.85rem;
+            color: #4a5568;
+            margin-top: 0.5rem;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, rgba(231, 255, 243, 0.3) 0%, white 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-note-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 1;
+        }
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        .pricing-note-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #E7FFF3;
+        }
+        
+        .pricing-note-item:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-note-item i {
+            color: #3CB371;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .pricing-note-item p {
+            color: #2E8B57;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .pricing-note-item a {
+            color: #3CB371;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        
+        /* Calculator Styles */
+        .day-btn, .duration-btn {
+            background: white;
+            border: 2px solid #E7FFF3;
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 600;
+            color: #2E8B57;
+        }
+        
+        .day-btn:hover, .duration-btn:hover {
+            border-color: #3CB371;
+            background: linear-gradient(135deg, #98E6C0, #3CB371);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(60, 179, 113, 0.3);
+        }
+        
+        .day-btn.active, .duration-btn.active {
+            border-color: #3CB371;
+            background: linear-gradient(135deg, #98E6C0, #3CB371);
+            color: white;
+            box-shadow: 0 5px 15px rgba(60, 179, 113, 0.3);
+        }
+        
+        .service-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #E7FFF3;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .service-checkbox:hover {
+            border-color: #3CB371;
+            background: rgba(152, 230, 192, 0.1);
+        }
+        
+        .service-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #3CB371;
+        }
+        
+        .service-checkbox span {
+            font-weight: 500;
+            color: #2E8B57;
+        }
+        
+        .service-checkbox input[type="checkbox"]:checked + span {
+            font-weight: 700;
+        }
+        
+        /* Calculator Result Section */
+        .calculator-section {
+            padding: 4rem 1rem;
+            background: white;
+        }
+        
+        .calculator-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 2px solid #98E6C0;
+            padding: 2rem;
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border: 2px solid #3CB371;
+        }
+        
+        .total-price {
+            color: #2E8B57;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #1e5631 0%, #1a4d2b 50%, #164325 100%);
+            color: white;
+            padding: 3rem 1rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            max-width: 6xl;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+        }
+        
+        .footer-col p {
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-col ul li {
+            color: rgba(255,255,255,0.8);
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col ul li:hover {
+            color: #74C69D;
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #3CB371, #2E8B57);
+            transform: translateY(-3px);
+        }
+        
+        .social-icons svg {
+            width: 1.25rem;
+            color: white;
+        }
+        
+        .footer-divider {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 2rem 0;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .bento-item {
+                min-height: 240px;
+            }
+            
+            .bento-content {
+                padding: 1.5rem;
+            }
+            
+            .card-text h3 {
+                font-size: 1.25rem;
+            }
+            
+            .card-text p {
+                font-size: 0.85rem;
+            }
+            
+            .pricing-table-wrapper {
+                padding: 1.5rem;
+                overflow-x: auto;
+            }
+            
+            .pricing-table {
+                min-width: 500px;
+            }
+            
+            .pricing-table thead th {
+                font-size: 0.9rem;
+                padding: 0.75rem;
+            }
+            
+            .pricing-table tbody td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16 items-center">
+                <a href="../domů/" class="flex items-center space-x-2 group">
+                    <img 
+                        src="../img/logo5.png"
+                        alt="Hravá Kavárnička"
+                        class="max-h-12 w-auto object-contain block transition-transform group-hover:scale-105"
+                    >
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../domů/" class="nav-link">Domů</a>
+                    <a href="../galerie/" class="nav-link">Galerie</a>
+                    <a href="../ceník/" class="nav-link">Ceník</a>
+                    <a href="#" class="current-page">Oslavy</a>
+                    <a href="../kontakt" class="nav-link">Kontakt</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-button p-2 text-green-900 hover:text-green-700 focus:outline-none">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden bg-white border-t border-green-100">
+            <div class="px-4 py-3 space-y-1">
+                <a href="../domů/" class="block text-green-700 hover:text-green-900">Domů</a>
+                <a href="../galerie/" class="block text-green-700 hover:text-green-900">Galerie</a>
+                <a href="../ceník/" class="block text-green-700 hover:text-green-900">Ceník</a>
+                <a href="#" class="block text-green-900 hover:text-green-900">Oslavy</a>
+                <a href="../kontakt/" class="block text-green-700 hover:text-green-900">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content px-4 max-w-4xl">
+            <h1>Oslavy všeho druhu</h1>
+            <p>Vytvořte nezapomenutelné vzpomínky v Hravé Kavárničce</p>
+        </div>
+    </section>
+
+    <!-- Event Types Section with Bento Grid -->
+    <section class="events-section">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <h2 class="section-title">Co u nás můžete slavit</h2>
+                <p class="text-xl text-green-700 max-w-3xl mx-auto leading-relaxed mt-6">
+                    Ať už plánujete narozeninovou oslavu, baby shower, nebo firemní akci – jsme tu pro vás!
+                </p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Card 1 - Large -->
+                <div class="bento-item glass-card gradient-1">
+                    <span class="card-number">1</span>
+                    <div class="bento-content">
+                        <div>
+                            <div class="floating-icon-wrapper">
+                                <div class="floating-icon">
+                                    <i data-feather="gift"></i>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h3>Narozeninové oslavy</h3>
+                                <p>Nezapomenutelné narozeniny pro vaše děti s hrami, zábavou a výzdobou na míru. Vytvoříme kouzelný den plný smíchu a radosti.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 - Wide -->
+                <div class="bento-item glass-card gradient-2">
+                    <span class="card-number">2</span>
+                    <div class="bento-content">
+                        <div>
+                            <div class="floating-icon-wrapper">
+                                <div class="floating-icon">
+                                    <i data-feather="heart"></i>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h3>Baby shower</h3>
+                                <p>Oslavte příchod nového člena rodiny v útulném prostředí. Zajistíme vše pro perfektní odpoledne plné očekávání a štěstí.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 - Large -->
+                <div class="bento-item glass-card gradient-3">
+                    <span class="card-number">3</span>
+                    <div class="bento-content">
+                        <div>
+                            <div class="floating-icon-wrapper">
+                                <div class="floating-icon">
+                                    <i data-feather="aperture"></i>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h3>Gender reveal party</h3>
+                                <p>Odhalení pohlaví miminka ve stylovém prostředí s vašimi nejbližšími. Překvapení, které si všichni zapamatují!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 - Small -->
+                <div class="bento-item glass-card gradient-4">
+                    <span class="card-number">4</span>
+                    <div class="bento-content">
+                        <div>
+                            <div class="floating-icon-wrapper">
+                                <div class="floating-icon">
+                                    <i data-feather="star"></i>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h3>Soukromé karnevaly</h3>
+                                <p>Maškarní párty s kostýmy a hravou atmosférou. Děti si užijí tanec, soutěže a zábavu v maskách.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 - Medium -->
+                <div class="bento-item glass-card gradient-5">
+                    <span class="card-number">5</span>
+                    <div class="bento-content">
+                        <div>
+                            <div class="floating-icon-wrapper">
+                                <div class="floating-icon">
+                                    <i data-feather="music"></i>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h3>Rodinné večírky</h3>
+                                <p>Soukromé oslavy a večírky pro rodiny s dětmi v bezpečném a zábavném prostředí. Užijte si čas spolu!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 - Medium -->
+                <div class="bento-item glass-card gradient-6">
+                    <span class="card-number">6</span>
+                    <div class="bento-content">
+                        <div>
+                            <div class="floating-icon-wrapper">
+                                <div class="floating-icon">
+                                    <i data-feather="briefcase"></i>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h3>Firemní akce</h3>
+                                <p>Teambuildingy a firemní akce pro zaměstnance s dětmi. Propojte práci a rodinu v příjemném prostředí.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7 - Medium -->
+                <div class="bento-item glass-card gradient-7">
+                    <span class="card-number">7</span>
+                    <div class="bento-content">
+                        <div>
+                            <div class="floating-icon-wrapper">
+                                <div class="floating-icon">
+                                    <i data-feather="camera"></i>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h3>Focení & Natáčení</h3>
+                                <p>Pronájem prostoru pro fotografické projekty, reklamní kampaně či natáčení v unikátním dětském prostředí.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section with Interactive Cards -->
+    <section class="pricing-section">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Ceník pronájmů</h2>
+                <p class="text-lg text-green-700 max-w-2xl mx-auto leading-relaxed mt-4">
+                    Vyberte si balíček, který vám nejlépe vyhovuje
+                </p>
+            </div>
+
+            <!-- Weekday Pricing Cards -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">Všední dny (Po-Pá)</h3>
+                <div class="pricing-cards-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-card-header">
+                            <div class="pricing-card-icon">
+                                <i data-feather="clock"></i>
+                            </div>
+                            <div class="pricing-duration">3 hodiny</div>
+                            <div class="pricing-day-type">Pondělí - Pátek</div>
+                        </div>
+                        <div class="pricing-amount">
+                            4 500<span class="pricing-amount-small">Kč</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-feather="check-circle"></i> Celý prostor kavárny</li>
+                            <li><i data-feather="check-circle"></i> Zavřeno pro veřejnost</li>
+                            <li><i data-feather="check-circle"></i> Základní výzdoba</li>
+                            <li><i data-feather="check-circle"></i> Hry a aktivity pro děti</li>
+                        </ul>
+                    </div>
+
+                    <div class="pricing-card">
+                        <div class="pricing-card-header">
+                            <div class="pricing-card-icon">
+                                <i data-feather="clock"></i>
+                            </div>
+                            <div class="pricing-duration">4 hodiny</div>
+                            <div class="pricing-day-type">Pondělí - Pátek</div>
+                        </div>
+                        <div class="pricing-amount">
+                            5 000<span class="pricing-amount-small">Kč</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-feather="check-circle"></i> Celý prostor kavárny</li>
+                            <li><i data-feather="check-circle"></i> Zavřeno pro veřejnost</li>
+                            <li><i data-feather="check-circle"></i> Základní výzdoba</li>
+                            <li><i data-feather="check-circle"></i> Hry a aktivity pro děti</li>
+                            <li><i data-feather="check-circle"></i> Extra čas na úklid</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekend Pricing Cards -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">Víkendy (So-Ne)</h3>
+                <div class="pricing-cards-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-card-header">
+                            <div class="pricing-card-icon">
+                                <i data-feather="sun"></i>
+                            </div>
+                            <div class="pricing-duration">3 hodiny</div>
+                            <div class="pricing-day-type">Sobota, Neděle</div>
+                        </div>
+                        <div class="pricing-amount">
+                            5 000<span class="pricing-amount-small">Kč</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-feather="check-circle"></i> Celý prostor kavárny</li>
+                            <li><i data-feather="check-circle"></i> Zavřeno pro veřejnost</li>
+                            <li><i data-feather="check-circle"></i> Základní výzdoba</li>
+                            <li><i data-feather="check-circle"></i> Hry a aktivity pro děti</li>
+                        </ul>
+                    </div>
+
+                    <div class="pricing-card">
+                        <div class="pricing-card-header">
+                            <div class="pricing-card-icon">
+                                <i data-feather="sun"></i>
+                            </div>
+                            <div class="pricing-duration">4 hodiny</div>
+                            <div class="pricing-day-type">Sobota, Neděle</div>
+                        </div>
+                        <div class="pricing-amount">
+                            6 000<span class="pricing-amount-small">Kč</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-feather="check-circle"></i> Celý prostor kavárny</li>
+                            <li><i data-feather="check-circle"></i> Zavřeno pro veřejnost</li>
+                            <li><i data-feather="check-circle"></i> Základní výzdoba</li>
+                            <li><i data-feather="check-circle"></i> Hry a aktivity pro děti</li>
+                            <li><i data-feather="check-circle"></i> Extra čas na úklid</li>
+                        </ul>
+                    </div>
+
+                    <div class="pricing-card">
+                        <div class="pricing-card-header">
+                            <div class="pricing-card-icon">
+                                <i data-feather="sun"></i>
+                            </div>
+                            <div class="pricing-duration">5 hodin</div>
+                            <div class="pricing-day-type">Sobota, Neděle</div>
+                        </div>
+                        <div class="pricing-amount">
+                            7 000<span class="pricing-amount-small">Kč</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-feather="check-circle"></i> Celý prostor kavárny</li>
+                            <li><i data-feather="check-circle"></i> Zavřeno pro veřejnost</li>
+                            <li><i data-feather="check-circle"></i> Základní výzdoba</li>
+                            <li><i data-feather="check-circle"></i> Hry a aktivity pro děti</li>
+                            <li><i data-feather="check-circle"></i> Extra čas na přípravu</li>
+                            <li><i data-feather="check-circle"></i> Extra čas na úklid</li>
+                        </ul>
+                    </div>
+
+                    <div class="pricing-card">
+                        <div class="pricing-card-header">
+                            <div class="pricing-card-icon">
+                                <i data-feather="sunrise"></i>
+                            </div>
+                            <div class="pricing-duration">Celý den</div>
+                            <div class="pricing-day-type">8 hodin (So, Ne)</div>
+                        </div>
+                        <div class="pricing-amount">
+                            10 000<span class="pricing-amount-small">Kč</span>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i data-feather="check-circle"></i> Celý prostor kavárny</li>
+                            <li><i data-feather="check-circle"></i> Zavřeno pro veřejnost</li>
+                            <li><i data-feather="check-circle"></i> Plná výzdoba</li>
+                            <li><i data-feather="check-circle"></i> Hry a aktivity pro děti</li>
+                            <li><i data-feather="check-circle"></i> Flexibilní časový rozvrh</li>
+                            <li><i data-feather="check-circle"></i> Vše bez stresu</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Services -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-green-700 mb-4 text-center">Doplňkové služby</h3>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon-small">
+                                <i data-feather="smile"></i>
+                            </div>
+                            <div class="service-info">
+                                <h4>Malování na obličej</h4>
+                                <div class="service-price">800 Kč/hod</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon-small">
+                                <i data-feather="music"></i>
+                            </div>
+                            <div class="service-info">
+                                <h4>Disko/Karaoke</h4>
+                                <div class="service-price">1 000 Kč</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon-small">
+                                <i data-feather="scissors"></i>
+                            </div>
+                            <div class="service-info">
+                                <h4>Marcipánová dílna</h4>
+                                <div class="service-price">1 200 Kč</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon-small">
+                                <i data-feather="award"></i>
+                            </div>
+                            <div class="service-info">
+                                <h4>Zdobení cupcaků</h4>
+                                <div class="service-price">od 1 200 Kč</div>
+                            </div>
+                        </div>
+                        <div class="service-note">Minimálně 15 kusů</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon-small">
+                                <i data-feather="star"></i>
+                            </div>
+                            <div class="service-info">
+                                <h4>Tvoření minidortů</h4>
+                                <div class="service-price">od 1 500 Kč</div>
+                            </div>
+                        </div>
+                        <div class="service-note">Minimálně 6 kusů</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Notes -->
+            <div class="pricing-note-card mt-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
+                    <div class="flex items-center gap-3">
+                        <i data-feather="info" class="text-green-600 flex-shrink-0 w-5 h-5"></i>
+                        <p class="text-sm text-gray-700"><strong class="text-green-700">Vlastní občerstvení:</strong> vlastní jídlo ano, nápoje pouze z kavárny</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-feather="truck" class="text-green-600 flex-shrink-0 w-5 h-5"></i>
+                        <p class="text-sm text-gray-700"><strong class="text-green-700">Catering:</strong> mísy, tapas, tousty i výzdoba na objednávku</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-feather="calendar" class="text-green-600 flex-shrink-0 w-5 h-5"></i>
+                        <p class="text-sm text-gray-700"><strong class="text-green-700">Rezervace:</strong> <a href="mailto:info@hravakavarnicka.cz" class="text-green-600 hover:text-green-700 underline">email</a> nebo <a href="tel:606310969" class="text-green-600 hover:text-green-700 underline">606 310 969</a></p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-feather="alert-circle" class="text-green-600 flex-shrink-0 w-5 h-5"></i>
+                        <p class="text-sm text-gray-700"><strong class="text-green-700">Záloha:</strong> 2 000 Kč nutná pro rezervaci termínu</p>
+                    </div>
+                    <div class="flex items-center gap-3 md:col-span-2">
+                        <i data-feather="home" class="text-green-600 flex-shrink-0 w-5 h-5"></i>
+                        <p class="text-sm text-gray-700"><strong class="text-green-700">Poznámka:</strong> Kavárna zavřená pro veřejnost během pronájmu. Možnost pronájmu pouze části prostoru.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Calculator Section -->
+    <section class="calculator-section">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Kalkulačka ceny</h2>
+                <p class="text-lg text-green-700 max-w-2xl mx-auto leading-relaxed mt-4">
+                    Rychle zjistěte orientační cenu vaší oslavy
+                </p>
+            </div>
+
+            <div class="calculator-container">
+                <!-- Calculator Form -->
+                <div class="space-y-6">
+                    <!-- Day Type -->
+                    <div>
+                        <label class="block text-lg font-bold text-green-700 mb-3">Kdy chcete oslavit?</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button type="button" class="day-btn" data-day="weekday">
+                                <i data-feather="calendar" class="w-5 h-5 mb-2"></i>
+                                Všední den
+                            </button>
+                            <button type="button" class="day-btn" data-day="weekend">
+                                <i data-feather="sun" class="w-5 h-5 mb-2"></i>
+                                Sobota/Neděle
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Duration -->
+                    <div id="duration-section" style="display: none;">
+                        <label class="block text-lg font-bold text-green-700 mb-3">Délka pronájmu</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="duration-options">
+                        </div>
+                    </div>
+
+                    <!-- Additional Services -->
+                    <div id="services-section" style="display: none;">
+                        <label class="block text-lg font-bold text-green-700 mb-3">Doplňkové služby (nepovinné)</label>
+                        <div class="space-y-3">
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="facepainting" data-price="800">
+                                <span>Malování na obličej (800 Kč/hod)</span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="disco" data-price="1000">
+                                <span>Disko/Karaoke (1 000 Kč)</span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="marzipan" data-price="1200">
+                                <span>Marcipánová dílna (1 200 Kč)</span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="cupcakes" data-price="1200">
+                                <span>Zdobení cupcaků (od 1 200 Kč, min. 15 ks)</span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox" data-service="minicakes" data-price="1500">
+                                <span>Tvoření minidortů (od 1 500 Kč, min. 6 ks)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Result -->
+                    <div id="result-section" style="display: none;">
+                        <div class="result-box">
+                            <div class="text-center">
+                                <p class="text-gray-600 mb-2">Orientační cena</p>
+                                <p class="total-price" id="total-price">0 Kč</p>
+                                <p class="text-sm text-gray-500 mt-4">+ záloha 2 000 Kč při rezervaci</p>
+                            </div>
+                            <div class="mt-6 pt-6 border-t border-green-300">
+                                <h4 class="font-bold text-green-700 mb-3">Vaše objednávka:</h4>
+                                <div id="order-summary" class="space-y-2 text-sm"></div>
+                            </div>
+                            <div class="mt-6 flex gap-3">
+                                <a href="tel:606310969" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-center py-3 rounded-lg font-bold transition">
+                                    <i data-feather="phone" class="inline w-4 h-4 mr-2"></i>
+                                    Zavolat
+                                </a>
+                                <a href="mailto:info@hravakavarnicka.cz" class="flex-1 bg-green-500 hover:bg-green-600 text-white text-center py-3 rounded-lg font-bold transition">
+                                    <i data-feather="mail" class="inline w-4 h-4 mr-2"></i>
+                                    Email
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Hravá Kavárnička</h3>
+                    <p>Místo, kde si děti hrají a rodiče odpočívají.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Otevírací doba</h3>
+                    <ul class="list-none">
+                        <li>Po: Zavřeno</li>
+                        <li>Út - Čt: 9:30-18:00</li>
+                        <li>Pá - So: 9:30-19:00</li>
+                        <li>Ne: 13:00-18:00</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Kontakt</h3>
+                    <ul class="list-none">
+                        <li>Labská 14, 280 02 Kolín V</li>
+                        <li>Tel: <a href="tel:720575101" class="hover:text-green-300">720 575 101</a></li>
+                        <li>Email: <a href="mailto:info@hravakavarnicka.cz" class="hover:text-green-300">info@hravakavarnicka.cz</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Sledujte nás</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>© 2026 Hravá Kavárnička. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close menu on outside click
+        document.addEventListener('click', (e) => {
+            const clickedInsideMenu = mobileMenu.contains(e.target);
+            const clickedButton = menuButton.contains(e.target);
+
+            if (!clickedInsideMenu && !clickedButton) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+
+        // Price Calculator
+        const pricing = {
+            weekday: {
+                3: 4500,
+                4: 5000
+            },
+            weekend: {
+                3: 5000,
+                4: 6000,
+                5: 7000,
+                8: 10000
+            }
+        };
+
+        const services = {
+            facepainting: { name: 'Malování na obličej', price: 800 },
+            disco: { name: 'Disko/Karaoke', price: 1000 },
+            marzipan: { name: 'Marcipánová dílna', price: 1200 },
+            cupcakes: { name: 'Zdobení cupcaků', price: 1200 },
+            minicakes: { name: 'Tvoření minidortů', price: 1500 }
+        };
+
+        let selectedDay = null;
+        let selectedDuration = null;
+        let selectedServices = [];
+
+        // Day selection
+        document.querySelectorAll('.day-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedDay = this.dataset.day;
+                
+                // Show duration options
+                const durationSection = document.getElementById('duration-section');
+                const durationOptions = document.getElementById('duration-options');
+                durationSection.style.display = 'block';
+                
+                // Clear and populate duration options
+                durationOptions.innerHTML = '';
+                const durations = selectedDay === 'weekday' ? [3, 4] : [3, 4, 5, 8];
+                
+                durations.forEach(hours => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'duration-btn';
+                    btn.dataset.duration = hours;
+                    btn.innerHTML = `
+                        <i data-feather="clock" class="w-5 h-5 mb-2"></i>
+                        ${hours} ${hours === 1 ? 'hodina' : hours < 5 ? 'hodiny' : 'hodin'}
+                    `;
+                    durationOptions.appendChild(btn);
+                });
+                
+                feather.replace();
+                attachDurationListeners();
+                
+                // Reset duration and hide services
+                selectedDuration = null;
+                document.getElementById('services-section').style.display = 'none';
+                document.getElementById('result-section').style.display = 'none';
+            });
+        });
+
+        function attachDurationListeners() {
+            document.querySelectorAll('.duration-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedDuration = parseInt(this.dataset.duration);
+                    
+                    // Show services section
+                    document.getElementById('services-section').style.display = 'block';
+                    
+                    // Calculate initial price
+                    calculatePrice();
+                });
+            });
+        }
+
+        // Service selection
+        document.querySelectorAll('.service-checkbox input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const service = this.dataset.service;
+                if (this.checked) {
+                    selectedServices.push(service);
+                } else {
+                    selectedServices = selectedServices.filter(s => s !== service);
+                }
+                calculatePrice();
+            });
+        });
+
+        function calculatePrice() {
+            if (!selectedDay || !selectedDuration) return;
+
+            const basePrice = pricing[selectedDay][selectedDuration];
+            let servicesPrice = 0;
+            let orderSummary = [];
+
+            // Add base price to summary
+            const dayLabel = selectedDay === 'weekday' ? 'všední den' : 'víkend';
+            orderSummary.push(`<div class="flex justify-between"><span>Pronájem (${selectedDuration}h, ${dayLabel})</span><span class="font-bold">${basePrice.toLocaleString()} Kč</span></div>`);
+
+            // Calculate services
+            selectedServices.forEach(serviceKey => {
+                const service = services[serviceKey];
+                servicesPrice += service.price;
+                orderSummary.push(`<div class="flex justify-between"><span>${service.name}</span><span class="font-bold">${service.price.toLocaleString()} Kč</span></div>`);
+            });
+
+            const totalPrice = basePrice + servicesPrice;
+
+            // Update display
+            document.getElementById('total-price').textContent = totalPrice.toLocaleString() + ' Kč';
+            document.getElementById('order-summary').innerHTML = orderSummary.join('');
+            document.getElementById('result-section').style.display = 'block';
+            
+            // Smooth scroll to result
+            document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            feather.replace();
+        }
+        
+        // Scroll to calculator function
+        function scrollToCalculator() {
+            document.querySelector('.calculator-section').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+    </script>
+</body>
+</html>

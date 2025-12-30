@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceník | Hravá Kavárnička</title>
+    <link rel="icon" href="../img/logo2.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Comfortaa', cursive;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+
+        .current-page {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+        
+        .current-page:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+        
+        .nav-link:hover {
+            color: #2E8B57;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .mobile-menu a {
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .mobile-menu a:hover {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            transform: translateX(4px);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 1rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../img/24.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.95);
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, white 0%, #fffbf0 50%, #E7FFF3 100%);
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2E8B57;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+            border-radius: 2px;
+        }
+
+        /* Entry Cards Grid */
+        .entry-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .entry-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .entry-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .entry-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .entry-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        .entry-card:hover .entry-icon {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .entry-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #2E8B57;
+            transition: color 0.4s ease;
+        }
+
+        .entry-card:hover .entry-icon svg {
+            color: white;
+        }
+
+        .entry-card h3 {
+            font-size: 1.75rem;
+            color: #2E8B57;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .entry-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #3CB371;
+            margin-bottom: 1rem;
+        }
+
+        .entry-description {
+            color: #2E8B57;
+            line-height: 1.6;
+        }
+
+        /* Wide Service Card */
+        .services-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #E7FFF3 0%, rgba(231, 255, 243, 0.3) 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateX(5px);
+            background: linear-gradient(135deg, #98E6C0 0%, #E7FFF3 100%);
+        }
+
+        .service-icon-small {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .service-icon-small svg {
+            width: 24px;
+            height: 24px;
+            color: #2E8B57;
+        }
+
+        .service-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2E8B57;
+            margin-bottom: 0.25rem;
+        }
+
+        .service-price {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #3CB371;
+        }
+
+        .service-note {
+            font-size: 0.85rem;
+            color: #4a5568;
+            margin-top: 0.25rem;
+        }
+
+        /* Category Headers */
+        .category-header {
+            margin-bottom: 2rem;
+        }
+
+        .category-header h3 {
+            font-size: 2rem;
+            color: #2E8B57;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .category-header h3 svg {
+            color: #3CB371;
+        }
+
+        /* Event List */
+        .event-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .event-tag {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 50px;
+            font-weight: 600;
+            color: #2E8B57;
+            transition: all 0.3s ease;
+        }
+
+        .event-tag:hover {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #1e5631 0%, #1a4d2b 50%, #164325 100%);
+            color: white;
+            padding: 3rem 1rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+        }
+        
+        .footer-col p {
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-col ul li {
+            color: rgba(255,255,255,0.8);
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col ul li:hover {
+            color: #74C69D;
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #3CB371, #2E8B57);
+            transform: translateY(-3px);
+        }
+        
+        .social-icons svg {
+            width: 1.25rem;
+            color: white;
+        }
+        
+        .footer-divider {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 2rem 0;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .entry-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16 items-center">
+                <a href="../domů/" class="flex items-center space-x-2 group">
+                    <img 
+                        src="../img/logo5.png"
+                        alt="Hravá Kavárnička"
+                        class="max-h-12 w-auto object-contain block transition-transform group-hover:scale-105"
+                    >
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../úvod/" class="nav-link">Domů</a>
+                    <a href="../galerie/" class="nav-link">Galerie</a>
+                    <a href="#" class="current-page">Ceník</a>
+                    <a href="../oslavy/" class="nav-link">Oslavy</a>
+                    <a href="../kontakt/" class="nav-link">Kontakt</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-button p-2 text-green-900 hover:text-green-700 focus:outline-none">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden bg-white border-t border-green-100">
+            <div class="px-4 py-3 space-y-1">
+                <a href="../úvod/" class="block text-green-700 hover:text-green-900">Domů</a>
+                <a href="../galerie/" class="block text-green-700 hover:text-green-900">Galerie</a>
+                <a href="#" class="block text-green-900 hover:text-green-900">Ceník</a>
+                <a href="../oslavy/" class="block text-green-700 hover:text-green-900">Oslavy</a>
+                <a href="../kontakt/" class="block text-green-700 hover:text-green-900">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div style="position: relative; z-index: 2;">
+            <h1>Ceník služeb</h1>
+            <p>Přehled vstupů, programů a oslav v Hravé Kavárničce</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <!-- Entry Cards -->
+            <div class="section-title">
+                <h2>Vstupné</h2>
+            </div>
+            <div class="entry-cards">
+                <div class="entry-card">
+                    <div class="entry-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+                    </div>
+                    <h3>5 vstupů</h3>
+                    <div class="entry-price">500 Kč</div>
+                    <p class="entry-description">Permanentka na 5 vstupů</p>
+                </div>
+
+                <div class="entry-card">
+                    <div class="entry-icon">
+                        <i data-feather="credit-card"></i>
+                    </div>
+                    <h3>10 vstupů</h3>
+                    <div class="entry-price">1 000 Kč</div>
+                    <p class="entry-description">Permanentka na 10 vstupů</p>
+                </div>
+            </div>
+
+            <!-- Services Card -->
+            <div class="section-title">
+                <h2>Doplňkové služby</h2>
+            </div>
+            <div class="services-card">
+                <div class="category-header">
+                    <h3>
+                        <i data-feather="smile"></i>
+                        Animační programy
+                    </h3>
+                </div>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <div class="service-icon-small">
+                            <i data-feather="droplet"></i>
+                        </div>
+                        <div class="service-info">
+                            <h4>Malování na obličej</h4>
+                            <div class="service-price">800 Kč/hodina</div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-small">
+                            <i data-feather="music"></i>
+                        </div>
+                        <div class="service-info">
+                            <h4>Disko/Karaoke</h4>
+                            <div class="service-price">1 000 Kč</div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-small">
+                            <i data-feather="scissors"></i>
+                        </div>
+                        <div class="service-info">
+                            <h4>Marcipánová dílna</h4>
+                            <div class="service-price">1 200 Kč</div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-small">
+                            <i data-feather="award"></i>
+                        </div>
+                        <div class="service-info">
+                            <h4>Zdobení cupcaků</h4>
+                            <div class="service-price">od 1 200 Kč</div>
+                            <div class="service-note">dle počtu cupcaků, min. 15 ks</div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-small">
+                            <i data-feather="star"></i>
+                        </div>
+                        <div class="service-info">
+                            <h4>Tvoření/zdobení minidortů</h4>
+                            <div class="service-price">od 1 500 Kč</div>
+                            <div class="service-note">dle počtu dortů, min. 6 ks</div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-icon-small">
+                            <i data-feather="camera"></i>
+                        </div>
+                        <div class="service-info">
+                            <h4>Fotograf</h4>
+                            <div class="service-price">cena na vyžádání</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Section -->
+            <div class="section-title" style="margin-top: 4rem;">
+                <h2>Oslavy všeho druhu</h2>
+            </div>
+            <div class="services-card">
+                <div class="category-header">
+                    <h3>
+                        <i data-feather="gift"></i>
+                        Typy oslav
+                    </h3>
+                </div>
+                <div class="event-list">
+                    <div class="event-tag">Narozeninové oslavy</div>
+                    <div class="event-tag">Baby shower</div>
+                    <div class="event-tag">Soukromé karnevaly</div>
+                    <div class="event-tag">Focení</div>
+                    <div class="event-tag">Večírky</div>
+                    <div class="event-tag">Firemní akce</div>
+                    <div class="event-tag">Gender reveal party</div>
+                </div>
+                <div style="margin-top: 2rem; text-align: center;">
+                    <p style="color: #2E8B57; font-size: 1.1rem; margin-bottom: 1rem;">Pro detailní ceník pronájmů a informace o oslavách navštivte:</p>
+                    <a href="../oslavy/" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #74C69D, #3CB371); color: white; border-radius: 50px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">
+                        <i data-feather="arrow-right" style="display: inline; width: 20px; height: 20px; vertical-align: middle; margin-right: 0.5rem;"></i>
+                        Zobrazit ceník oslav
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Hravá Kavárnička</h3>
+                    <p>Místo, kde si děti hrají a rodiče odpočívají.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Otevírací doba</h3>
+                    <ul class="list-none">
+                        <li>Po: Zavřeno</li>
+                        <li>Út - Čt: 9:30-18:00</li>
+                        <li>Pá - So: 9:30-19:00</li>
+                        <li>Ne: 13:00-18:00</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Kontakt</h3>
+                    <ul class="list-none">
+                        <li>Labská 14, 280 02 Kolín V</li>
+                        <li>Tel: <a href="tel:720575101" class="hover:text-green-300">720 575 101</a></li>
+                        <li>Email: <a href="mailto:info@hravakavarnicka.cz" class="hover:text-green-300">info@hravakavarnicka.cz</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Sledujte nás</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>© 2026 Hravá Kavárnička. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            const clickedInsideMenu = mobileMenu.contains(e.target);
+            const clickedButton = menuButton.contains(e.target);
+            if (!clickedInsideMenu && !clickedButton) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt | Hravá Kavárnička</title>
+    <link rel="icon" href="../img/logo2.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Comfortaa', cursive;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+
+        .current-page {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            color: #2E8B57;
+            transition: color 0.3s ease;
+        }
+        
+        .current-page:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #2E8B57, #3CB371);
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2px;
+        }
+        
+        .nav-link:hover {
+            color: #2E8B57;
+        }
+        
+        .current-page:hover:after {
+            width: 100%;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .mobile-menu a {
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .mobile-menu a:hover {
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            transform: translateX(4px);
+        }
+
+        /* Contact Hero */
+        /* Contact Hero */
+        .contact-hero {
+            padding: 5rem 1rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../img/37.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+        
+        .contact-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .contact-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-hero p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.95);
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, white 0%, #fffbf0 100%);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Contact Cards */
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-align: center;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .contact-card-icon {
+            width: 5rem;
+            height: 5rem;
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-card-icon svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: #2E8B57;
+        }
+
+        .contact-card h3 {
+            color: #2E8B57;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .contact-card p {
+            color: #2E8B57;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .contact-card a {
+            color: #2E8B57;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            color: #3CB371;
+        }
+
+        .contact-card .social-icons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .contact-card .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card .social-icons a:hover {
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            transform: translateY(-3px);
+        }
+
+        .contact-card .social-icons svg {
+            width: 1.5rem;
+            color: #2E8B57;
+        }
+
+        /* Hours Section */
+        .hours-section {
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+            padding: 4rem 1rem;
+        }
+
+        .hours-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hours-container h2 {
+            color: #2E8B57;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .hours-grid {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 2px solid #E7FFF3;
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            color: #2E8B57;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .hours-time {
+            color: #2E8B57;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: white;
+            padding: 4rem 1rem;
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-container h2 {
+            color: #2E8B57;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .map-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 500px;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #1e5631 0%, #1a4d2b 50%, #164325 100%);
+            color: white;
+            padding: 3rem 1rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            max-width: 6xl;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+        }
+        
+        .footer-col p {
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-col ul li {
+            color: rgba(255,255,255,0.8);
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-col ul li:hover {
+            color: #74C69D;
+            transform: translateX(5px);
+        }
+        
+        .footer-col .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-col .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .footer-col .social-icons a:hover {
+            background: linear-gradient(135deg, #3CB371, #2E8B57);
+            transform: translateY(-3px);
+        }
+        
+        .footer-col .social-icons svg {
+            width: 1.25rem;
+            color: white;
+        }
+        
+        .footer-divider {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 2rem 0;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .contact-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .map-wrapper {
+                height: 350px;
+            }
+
+            .hours-container h2,
+            .map-container h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16 items-center">
+                <a href="../domů/" class="flex items-center space-x-2 group">
+                    <img 
+        src="../img/logo5.png"
+        alt="Hravá Kavárnička"
+        class="max-h-12 w-auto object-contain block transition-transform group-hover:scale-105"
+        
+    >
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../domů/" class="nav-link">Domů</a>
+                    <a href="../galerie/" class="nav-link">Galerie</a>
+                    <a href="../ceník/" class="nav-link">Ceník</a>
+                    <a href="../oslavy/" class="nav-link">Oslavy</a>
+                    <a href="#" class="current-page">Kontakt</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-button p-2 text-green-900 hover:text-green-700 focus:outline-none">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden bg-white border-t border-green-100">
+            <div class="px-4 py-3 space-y-1">
+                <a href="../domů/" class="block text-green-700 hover:text-green-900">Domů</a>
+                <a href="../galerie/" class="block text-green-700 hover:text-green-900">Galerie</a>
+                <a href="../ceník/" class="block text-green-700 hover:text-green-900">Ceník</a>
+                <a href="../oslavy/" class="block text-green-700 hover:text-green-900">Oslavy</a>
+                <a href="#" class="block text-green-900 hover:text-green-900">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Hero -->
+   <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div style="position: relative; z-index: 2; text-align: center;">
+            <h1>Kontaktujte nás</h1>
+            <p>Rádi zodpovíme vaše dotazy a těšíme se na vaši návštěvu</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <i data-feather="map-pin"></i>
+                    </div>
+                    <h3>Adresa</h3>
+                    <p>Labská 14</p>
+                    <p>280 02 Kolín V</p>
+                    <p>Česká republika</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <i data-feather="phone"></i>
+                    </div>
+                    <h3>Telefon</h3>
+                    <p><a href="tel:720575101">+420 720 575 101</a></p>
+                    <p>Volejte nám kdykoliv<br>během otevírací doby</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <i data-feather="mail"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p><a href="mailto:coffeekids@seznam.cz">coffeekids@seznam.cz</a></p>
+                    <p>Odpovídáme do 24 hodin</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <i data-feather="share-2"></i>
+                    </div>
+                    <h3>Sociální sítě</h3>
+                    <p>Sledujte nás pro<br>aktuální novinky</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="hours-section">
+        <div class="hours-container">
+            <h2>Otevírací doba</h2>
+            <div class="hours-grid">
+                <div class="hours-row">
+                    <span class="hours-day">Pondělí</span>
+                    <span class="hours-time">Zavřeno</span>
+                </div>
+                <div class="hours-row">
+                    <span class="hours-day">Úterý - Čtvrtek</span>
+                    <span class="hours-time">9:30 - 18:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="hours-day">Pátek - Sobota</span>
+                    <span class="hours-time">9:30 - 19:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="hours-day">Neděle</span>
+                    <span class="hours-time">13:00 - 18:00</span>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <h2>Kde nás najdete</h2>
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.9857885980236!2d15.203769175548786!3d50.030362117523374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470c1500310e6715%3A0xc68d98d0879c9b85!2zSHJhdsOhIGthdsOhcm5pxI1rYQ!5e0!3m2!1scs!2scz!4v1763893576915!5m2!1scs!2scz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content max-w-6xl mx-auto">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Hravá Kavárnička</h3>
+                    <p>Místo, kde si děti hrají a rodiče odpočívají.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Otevírací doba</h3>
+                    <ul class="list-none">
+                        <li>Po: Zavřeno</li>
+                        <li>Út - Čt: 9:30-18:00</li>
+                        <li>Pá - So: 9:30-19:00</li>
+                        <li>Ne: 13:00-18:00</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Kontakt</h3>
+                    <ul class="list-none">
+                        <li>Labská 14, 280 02 Kolín V</li>
+                        <li>Tel: <a href="tel:720575101" class="hover:text-green-300">720 575 101</a></li>
+                        <li>Email: <a href="mailto:info@hravakavarnicka.cz" class="hover:text-green-300">info@hravakavarnicka.cz</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Sledujte nás</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
+                            <i data-feather="instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>© 2026 Hravá Kavárnička. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            const clickedInsideMenu = mobileMenu.contains(e.target);
+            const clickedButton = menuButton.contains(e.target);
+            if (!clickedInsideMenu && !clickedButton) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
