@@ -741,7 +741,6 @@ footer {
                <div class="footer-col">
     <h3>Otevírací doba</h3>
     <ul class="list-none">
-        <li><span class="text-red-600 font-bold">24.1.2026: Zavřeno</span></li>
         <li>Pondělí: Zavřeno</li>
         <li>Úterý: 9:30-18:00</li>
         <li>Středa: 9:30-18:00</li>
@@ -814,7 +813,7 @@ function checkOpenStatus() {
     }
     
     if (isOpen) {
-        statusElement.innerHTML = 'Právě: <span class="text-red-600 font-bold">Zavřeno</span>';
+        statusElement.innerHTML = 'Právě: <span class="text-green-600 font-bold">Otevřeno</span>';
     } else {
         statusElement.innerHTML = 'Právě: <span class="text-red-600 font-bold">Zavřeno</span>';
     }
