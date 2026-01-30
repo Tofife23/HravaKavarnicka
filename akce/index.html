@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt | Hravá Kavárnička</title>
+    <title>Akce | Hravá Kavárnička</title>
     <link rel="icon" href="../img/logo2.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
@@ -75,10 +75,6 @@
         .nav-link:hover {
             color: #2E8B57;
         }
-        
-        .current-page:hover:after {
-            width: 100%;
-        }
 
         .nav-link:hover:after {
             width: 100%;
@@ -109,9 +105,8 @@
             transform: translateX(4px);
         }
 
-        /* Contact Hero */
-        /* Contact Hero */
-        .contact-hero {
+        /* Events Hero */
+        .events-hero {
             padding: 5rem 1rem 3rem;
             text-align: center;
             position: relative;
@@ -122,21 +117,21 @@
             justify-content: center;
         }
 
-        .contact-hero::before {
+        .events-hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('../img/37.jpg');
+            background-image: url('../img/38.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             z-index: 0;
         }
         
-        .contact-hero::after {
+        .events-hero::after {
             content: '';
             position: absolute;
             top: 0;
@@ -147,61 +142,220 @@
             z-index: 1;
         }
 
-        .contact-hero h1 {
+        .events-hero h1 {
             font-size: 3rem;
             font-weight: 700;
             color: white;
             margin-bottom: 1rem;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .contact-hero p {
+        .events-hero p {
             font-size: 1.25rem;
             color: rgba(255,255,255,0.95);
             position: relative;
-            z-index: 1;
-            max-width: 600px;
+            z-index: 2;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        /* Contact Section */
-        .contact-section {
+        /* Events Section */
+        .events-section {
             padding: 4rem 1rem;
             background: linear-gradient(180deg, white 0%, #fffbf0 100%);
         }
 
-        .contact-container {
+        .events-container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Contact Cards */
-        .contact-cards {
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2E8B57;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3CB371, #2E8B57);
+            border-radius: 2px;
+        }
+
+        /* Event Cards */
+        .events-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
 
-        .contact-card {
+        .event-card {
             background: white;
-            padding: 2.5rem;
             border-radius: 20px;
+            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-align: center;
+            cursor: pointer;
         }
 
-        .contact-card:hover {
+        .event-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
         }
 
-        .contact-card-icon {
-            width: 5rem;
-            height: 5rem;
+        .event-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.08);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            color: #2E8B57;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(116, 198, 157, 0.4);
+        }
+
+        .event-content {
+            padding: 2rem;
+        }
+
+        .event-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2E8B57;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .event-date svg {
+            width: 1.25rem;
+            color: #3CB371;
+        }
+
+        .event-title {
+            color: #2E8B57;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .event-description {
+            color: #2E8B57;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2E8B57;
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .event-detail svg {
+            width: 1rem;
+            color: #2E8B57;
+        }
+
+        .event-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #74C69D, #3CB371);
+            color: #2E8B57;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .event-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(116, 198, 157, 0.4);
+        }
+
+        .event-button svg {
+            width: 1rem;
+        }
+
+        /* Regular Events Section */
+        .regular-events {
+            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
+            padding: 4rem 1rem;
+        }
+
+        .regular-events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .regular-event-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .regular-event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .regular-event-icon {
+            width: 4rem;
+            height: 4rem;
             background: linear-gradient(135deg, #E7FFF3, #98E6C0);
             border-radius: 50%;
             display: flex;
@@ -210,145 +364,116 @@
             margin: 0 auto 1.5rem;
         }
 
-        .contact-card-icon svg {
-            width: 2.5rem;
-            height: 2.5rem;
+        .regular-event-icon svg {
+            width: 2rem;
+            height: 2rem;
             color: #2E8B57;
         }
 
-        .contact-card h3 {
+        .regular-event-title {
             color: #2E8B57;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
             font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        .contact-card p {
+        .regular-event-description {
             color: #2E8B57;
             line-height: 1.8;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
-        .contact-card a {
-            color: #2E8B57;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            text-decoration: none;
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2E8B57 0%, #3CB371 100%);
+            padding: 4rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-card a:hover {
-            color: #3CB371;
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
-        .contact-card .social-icons {
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
-        .contact-card .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 3rem;
-            height: 3rem;
-            background: linear-gradient(135deg, #E7FFF3, #98E6C0);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .contact-card .social-icons a:hover {
-            background: linear-gradient(135deg, #74C69D, #3CB371);
-            transform: translateY(-3px);
-        }
-
-        .contact-card .social-icons svg {
-            width: 1.5rem;
-            color: #2E8B57;
-        }
-
-        /* Hours Section */
-        .hours-section {
-            background: linear-gradient(135deg, #fffbf0 0%, #E7FFF3 100%);
-            padding: 4rem 1rem;
-        }
-
-        .hours-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .hours-container h2 {
-            color: #2E8B57;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            font-weight: 700;
-        }
-
-        .hours-grid {
+        .btn-primary {
             background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .hours-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            border-bottom: 2px solid #E7FFF3;
-        }
-
-        .hours-row:last-child {
-            border-bottom: none;
-        }
-
-        .hours-day {
             color: #2E8B57;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .hours-time {
-            color: #2E8B57;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        /* Map Section */
-        .map-section {
-            background: white;
-            padding: 4rem 1rem;
-        }
-
-        .map-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .map-container h2 {
-            color: #2E8B57;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 700;
-        }
-
-        .map-wrapper {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            height: 500px;
-        }
-
-        .map-wrapper iframe {
-            width: 100%;
-            height: 100%;
             border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #2E8B57;
+            transform: translateY(-3px);
         }
 
         /* Footer */
@@ -381,11 +506,11 @@
         }
         
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));  /* ✅ SPRÁVNĚ */
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
         
         .footer-col h3 {
             font-size: 1.25rem;
@@ -463,28 +588,25 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .contact-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
         @media (max-width: 768px) {
-            .contact-hero h1 {
+            .events-hero h1 {
                 font-size: 2rem;
             }
 
-            .contact-cards {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .events-grid {
                 grid-template-columns: 1fr;
             }
 
-            .map-wrapper {
-                height: 350px;
+            .cta-content h2 {
+                font-size: 2rem;
             }
 
-            .hours-container h2,
-            .map-container h2 {
-                font-size: 2rem;
+            .cta-buttons {
+                flex-direction: column;
             }
         }
     </style>
@@ -496,11 +618,10 @@
             <div class="flex justify-between h-16 items-center">
                 <a href="../domů/" class="flex items-center space-x-2 group">
                     <img 
-        src="../img/logo5.png"
-        alt="Hravá Kavárnička"
-        class="max-h-12 w-auto object-contain block transition-transform group-hover:scale-105"
-        
-    >
+                        src="../img/logo5.png"
+                        alt="Hravá Kavárnička"
+                        class="max-h-12 w-auto object-contain block transition-transform group-hover:scale-105"
+                    >
                 </a>
                 
                 <!-- Desktop Menu -->
@@ -509,8 +630,8 @@
                     <a href="../galerie/" class="nav-link">Galerie</a>
                     <a href="../ceník/" class="nav-link">Ceník</a>
                     <a href="../oslavy/" class="nav-link">Oslavy</a>
-                    <a href="../akce/" class="nav-link">Akce</a>
-                    <a href="#" class="current-page">Kontakt</a>
+                    <a href="#" class="current-page">Akce</a>
+                    <a href="../kontakt/" class="nav-link">Kontakt</a>
                 </div>
                 
                 <!-- Mobile menu button -->
@@ -529,107 +650,72 @@
                 <a href="../galerie/" class="block text-green-700 hover:text-green-900">Galerie</a>
                 <a href="../ceník/" class="block text-green-700 hover:text-green-900">Ceník</a>
                 <a href="../oslavy/" class="block text-green-700 hover:text-green-900">Oslavy</a>
-                <a href="../akce/" class="block text-green-700 hover:text-green-900">Akce</a>
-                <a href="#" class="block text-green-900 hover:text-green-900">Kontakt</a>
+                <a href="#" class="block text-green-900 hover:text-green-900">Akce</a>
+                <a href="../kontakt/" class="block text-green-700 hover:text-green-900">Kontakt</a>
             </div>
         </div>
     </nav>
 
-    <!-- Contact Hero -->
-   <!-- Contact Hero -->
-    <section class="contact-hero">
+    <!-- Events Hero -->
+    <section class="events-hero">
         <div style="position: relative; z-index: 2; text-align: center;">
-            <h1>Kontaktujte nás</h1>
-            <p>Rádi zodpovíme vaše dotazy a těšíme se na vaši návštěvu</p>
+            <h1>Naše akce</h1>
+            <p>Sledujte naše pravidelné i speciální akce pro děti a celé rodiny</p>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="contact-container">
-            <div class="contact-cards">
-                <div class="contact-card">
-                    <div class="contact-card-icon">
-                        <i data-feather="map-pin"></i>
-                    </div>
-                    <h3>Adresa</h3>
-                    <p>Labská 14</p>
-                    <p>280 02 Kolín V</p>
-                    <p>Česká republika</p>
-                </div>
-
-                <div class="contact-card">
-                    <div class="contact-card-icon">
-                        <i data-feather="phone"></i>
-                    </div>
-                    <h3>Telefon</h3>
-                    <p><a href="tel:720575101">+420 720 575 101</a></p>
-                    <p>Volejte nám kdykoliv<br>během otevírací doby</p>
-                </div>
-
-                <div class="contact-card">
-                    <div class="contact-card-icon">
-                        <i data-feather="mail"></i>
-                    </div>
-                    <h3>Email</h3>
-                    <p><a href="mailto:info@hravakavarnicka.cz">info@hravakavarnicka.cz</a></p>
-                    <p>Odpovídáme do 24 hodin</p>
-                </div>
-
-                <div class="contact-card">
-                    <div class="contact-card-icon">
-                        <i data-feather="share-2"></i>
-                    </div>
-                    <h3>Sociální sítě</h3>
-                    <p>Sledujte nás pro<br>aktuální novinky</p>
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
-                            <i data-feather="facebook"></i>
-                        </a>
-                        <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
-                            <i data-feather="instagram"></i>
-                        </a>
-                    </div>
-                </div>
+    <!-- Upcoming Events Section -->
+    <section class="events-section">
+        <div class="events-container">
+            <div class="text-center mb-12">
+                <h2 class="section-title">Nadcházející akce</h2>
+                <p class="text-green-700 max-w-2xl mx-auto mt-6 text-lg">Přijďte si užít naše speciální akce a workshopy</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Hours Section -->
-    <section class="hours-section">
-        <div class="hours-container">
-            <h2>Otevírací doba</h2>
-            <div class="hours-grid">
-                <div class="hours-row">
-                    <span class="hours-day">Pondělí</span>
-                    <span class="hours-time">Zavřeno</span>
+            <div class="events-grid">
+                <!-- Event Card 1 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="../img/55.jpg" alt="Valentýnská dílnička">
+                        <span class="event-badge">Brzy</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i data-feather="calendar"></i>
+                            <span>26. března 2026</span>
+                        </div>
+                        <h3 class="event-title">Přednáška Cyrila Děckaře</h3>
+                        <p class="event-description">
+                            Určitě vám něco říká:<br>
+
+angína, antibiotika, čípky, ekzém, kolika, krvácení z nosu, neštovice, odplenkování, opruzeniny, reflux, horečka, zánět středního ucha a další stovky problémů, které denně řešíte.<br>
+
+Na spoustu věcí jsou doporučené postupy a rady zdravotnické organizace, ale lékaři si v praxi osahali a používají svoje nasedající metody. Všechny tyto tipy a triky sepsal do knihy Děcké lékařství
+
+a navíc osobně vám předá ty nejzajímavější a nejvíc funkční tipy Mudr. Cyril Matějka osobně v Kolíně v kavárně Hravá kavárnička.
+                        </p>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i data-feather="clock"></i>
+                                <span>17:00 - 19:00</span>
+                            </div>
+                            <div class="event-detail">
+                                <i data-feather="users"></i>
+                                <span>Pro rodiče</span>
+                            </div>
+                        </div>
+                        <a href="https://www.smsticket.cz/vstupenky/66381-prednaska-cyrila-deckare?utm_campaign=smsticket-prodejni-odkaz" target="_blank" class="event-button">
+                            <span>Rezervovat místo</span>
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="hours-row">
-                    <span class="hours-day">Úterý - Pátek</span>
-                    <span class="hours-time">9:30 - 18:00</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Sobota</span>
-                    <span class="hours-time">9:30 - 19:00</span>
-                </div>
-                <div class="hours-row">
-                    <span class="hours-day">Neděle</span>
-                    <span class="hours-time">14:00 - 18:00</span>
-                </div>
+
                 
             </div>
         </div>
     </section>
 
-    <!-- Map Section -->
-    <section class="map-section">
-        <div class="map-container">
-            <h2>Kde nás najdete</h2>
-            <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.9857885980236!2d15.203769175548786!3d50.030362117523374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470c1500310e6715%3A0xc68d98d0879c9b85!2zSHJhdsOhIGthdsOhcm5pxI1rYQ!5e0!3m2!1scs!2scz!4v1763893576915!5m2!1scs!2scz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer>
@@ -642,17 +728,17 @@
                 </div>
 
                 <div class="footer-col">
-    <h3>Otevírací doba</h3>
-    <ul class="list-none">
-        <li>Pondělí: Zavřeno</li>
-        <li>Úterý: 9:30-18:00</li>
-        <li>Středa: 9:30-18:00</li>
-        <li>Čtvrtek: 9:30-18:00</li>
-        <li>Pátek: 9:30-18:00</li>
-        <li>Sobota: 9:30-19:00</li>
-        <li>Neděle: 14:00-18:00</li>
-    </ul>
-</div>
+                    <h3>Otevírací doba</h3>
+                    <ul class="list-none">
+                        <li>Pondělí: Zavřeno</li>
+                        <li>Úterý: 9:30-18:00</li>
+                        <li>Středa: 9:30-18:00</li>
+                        <li>Čtvrtek: 9:30-18:00</li>
+                        <li>Pátek: 9:30-18:00</li>
+                        <li>Sobota: 9:30-19:00</li>
+                        <li>Neděle: 14:00-18:00</li>
+                    </ul>
+                </div>
 
                 <div class="footer-col">
                     <h3>Kontakt</h3>
