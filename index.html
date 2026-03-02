@@ -625,13 +625,7 @@ footer {
                     <div class="relative rounded-3xl overflow-hidden shadow-2xl aspect-video">
                         <img src="img/26.jpg" alt="Interiér kavárny" class="w-full h-full object-cover hover:scale-105 transition duration-700">
                     </div>
-                    <div class="absolute -bottom-6 -right-6 status-box lg:w-96">
-                        <h3>
-                            <i data-feather="clock"></i>
-                            <span id="status-text">Načítání...</span>
-                        </h3>
-                        
-                    </div>
+                    
                 </div>
 
                  <div class="space-y-4 lg:mt-8">
@@ -812,6 +806,9 @@ footer {
         <li>Sobota: 9:30-19:00</li>
         <li>Neděle: 14:00-18:00</li>
     </ul>
+    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 8px;">
+    Aktuální informace sledujte na našem Facebooku.
+</p>
 </div>
 
                 <div class="footer-col">
@@ -846,41 +843,7 @@ footer {
     <script>
         feather.replace();
 
-        // Check open status - UPDATED FOR NEW OPENING HOURS
-        // Check open status - UPDATED FOR NEW OPENING HOURS
-function checkOpenStatus() {
-    const now = new Date();
-    const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const currentTime = hours + minutes / 60;
-    
-    const statusElement = document.getElementById('status-text');
-    let isOpen = false;
-    
-    // Monday = closed (day 1)
-    if (day === 1) {
-        isOpen = false;
-    }
-    // Tuesday - Friday (days 2-5): 9:30-18:00
-    else if (day >= 2 && day <= 5) {
-        isOpen = currentTime >= 9.5 && currentTime < 18;
-    }
-    // Saturday (day 6): 9:30-19:00
-    else if (day === 6) {
-        isOpen = currentTime >= 9.5 && currentTime < 19;
-    }
-    // Sunday (day 0): 14:00-18:00
-    else if (day === 0) {
-        isOpen = currentTime >= 14 && currentTime < 18;
-    }
-    
-    if (isOpen) {
-        statusElement.innerHTML = 'Právě: <span class="text-green-600 font-bold">Otevřeno</span>';
-    } else {
-        statusElement.innerHTML = 'Právě: <span class="text-red-600 font-bold">Zavřeno</span>';
-    }
-}
+  
 
         document.addEventListener('DOMContentLoaded', checkOpenStatus);
 
