@@ -550,9 +550,73 @@ footer {
         .h-screen-80 {
             height: 80vh;
         }
+
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(135deg, #2E8B57, #1e5631);
+            color: white;
+            padding: 0.75rem 1rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            animation: marquee 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .info-banner a {
+            color: #74C69D;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .info-banner a:hover {
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .info-banner svg {
+            width: 1rem;
+            height: 1rem;
+        }
     </style>
 </head>
 <body>
+    <!-- Info Banner -->
+    <div class="info-banner">
+        <div class="banner-content">
+            <span>📢 Pro aktuální otevírací dobu doporučujeme sledovat náš</span>
+            <a href="https://www.facebook.com/p/Hrav%C3%A1-kav%C3%A1rni%C4%8Dka-61572567714813/" target="_blank" title="Facebook">
+                Facebook
+                <i data-feather="facebook"></i>
+            </a>
+            <span>/</span>
+            <a href="https://www.instagram.com/hrava_kavarnicka/" target="_blank" title="Instagram">
+                Instagram
+                <i data-feather="instagram"></i>
+            </a>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4">
@@ -803,8 +867,8 @@ footer {
         <li>Středa: 9:30-18:00</li>
         <li>Čtvrtek: 9:30-18:00</li>
         <li>Pátek: 9:30-18:00</li>
-        <li>Sobota: 9:30-19:00</li>
-        <li>Neděle: 14:00-18:00</li>
+        <li>Sobota: 9:30-18:00</li>
+        <li>Neděle: Zavřeno</li>
     </ul>
     <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 8px;">
     Aktuální informace sledujte na našem Facebooku.
